@@ -112,17 +112,21 @@ def add_false_incidents(df, feature, value):
     
     df.loc[(df[feature] == value), 'FalseIncident'] = "true"
 
-from IPython.display import display, HTML
-
-def print_comments(df):
-    for i,row in incidents[incidents['quickly_closed'] == "true"].iterrows():
-        display( HTML( pd.DataFrame({'comments_and_work_notes': [row['comments_and_work_notes']]}).to_html().replace("\\n","<br>") ) )
-
 def get_similarity(incidents):
-    
+
     # add a new column to the incidents dataframe that contains non-empty dataframes with similar incidents
     incidents["similar_incidents"] = incidents.apply(search, axis=1)
 
+    return _calculate_similarity(incidents)
+
+def get_single_similarity(incidents, user_submitted_incident):
+     
+    incidents["similar_incidents"] = user_submitted_incident.apply(search, axis=1)
+
+    return _calculate_similarity(incidents)
+
+def _calculate_similarity(incidents):
+    
     non_empty_similar_incidents = incidents.dropna(subset=["similar_incidents"])
     similarity_scores = non_empty_similar_incidents["similar_incidents"].apply(lambda x: x["similarity_score"])
 
@@ -156,7 +160,18 @@ incidents = preprocess_data(incidents)
 incidents["quickly_closed"] = incidents.apply(is_quickly_closed, axis=1)
 
 add_false_incidents(incidents, 'quickly_closed', 'true')
+
+print(incidents[incidents['FalseIncident'] == "true"])
 add_false_incidents(incidents, 'category', 'Hardware')
 
 print(get_similarity(incidents))
+
+    
+user_submitted_incident = pd.DataFrame({
+    "name": [-1],
+    "short_description": ["Unable to reset NID"],
+    "category": ["hardware"]
+})
+
+print(get_single_similarity(incidents, user_submitted_incident))
 

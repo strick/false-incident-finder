@@ -9,8 +9,10 @@ import re as re
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import TfidfVectorizer
 
+similarity_score_col = "short_description"
+
 # then compute similaties using cosine_sim with all other types to get a similartiy
-def search(incident):
+def search(incident): #
 
     # Choose min and max word sequesnces
     vectorizer = TfidfVectorizer(ngram_range=(1,5))
@@ -18,12 +20,12 @@ def search(incident):
     #change this to only vectorize on known incidents
     false_incidents = incidents[incidents['FalseIncident'] == "true"]
 
-    tfid_known_false_incidents = vectorizer.fit_transform(false_incidents['short_description'])
+    tfid_known_false_incidents = vectorizer.fit_transform(false_incidents[similarity_score_col])
 
     if incident.name in false_incidents.index:
        return
     
-    desc = clean_description(incident["short_description"])
+    desc = clean_description(incident[similarity_score_col])
     query_vec = vectorizer.transform([desc]) 
     
     # compare the description to the knownIncidents list
@@ -135,7 +137,7 @@ def _calculate_similarity(incidents):
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
-    import_data()
+    #import_data()
     name = req.params.get('name')
     if not name:
         try:
@@ -147,7 +149,29 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     if name:
         
-        return func.HttpResponse(f"Hello, {name}. This HTTP triggered function executed successfully.")
+        incidents = import_data()
+        incidents = preprocess_data(incidents)
+
+        incidents["quickly_closed"] = incidents.apply(is_quickly_closed, axis=1)
+
+        add_false_incidents(incidents, 'quickly_closed', 'true')
+
+        print(incidents[incidents['FalseIncident'] == "true"])
+        add_false_incidents(incidents, 'category', 'Hardware')
+
+        print(get_similarity(incidents))
+
+            
+        user_submitted_incident = pd.DataFrame({
+            "name": [-1],
+            similarity_score_col: [name],
+            "category": ["hardware"]
+        })
+
+        single_similarity = get_single_similarity(incidents, user_submitted_incident)
+        print()
+
+        return func.HttpResponse(f"I computed a similarity of {single_similarity}")
     else:
         return func.HttpResponse(
              "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
@@ -161,17 +185,16 @@ incidents["quickly_closed"] = incidents.apply(is_quickly_closed, axis=1)
 
 add_false_incidents(incidents, 'quickly_closed', 'true')
 
-print(incidents[incidents['FalseIncident'] == "true"])
+#print(incidents[incidents['FalseIncident'] == "true"])
 add_false_incidents(incidents, 'category', 'Hardware')
 
-print(get_similarity(incidents))
+#print(get_similarity(incidents))
 
     
 user_submitted_incident = pd.DataFrame({
     "name": [-1],
-    "short_description": ["Unable to reset NID"],
+    similarity_score_col: ["Unable to reset NID"],
     "category": ["hardware"]
 })
-
 print(get_single_similarity(incidents, user_submitted_incident))
 

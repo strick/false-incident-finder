@@ -168,10 +168,10 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             "category": ["hardware"]
         })
 
-        single_similarity = get_single_similarity(incidents, user_submitted_incident)
+        single_similarity = get_single_similarity(incidents, user_submitted_incident).iloc[0].iloc[0]
         print()
 
-        return func.HttpResponse(f"I computed a similarity of {single_similarity}")
+        return func.HttpResponse(f"{single_similarity}")
     else:
         return func.HttpResponse(
              "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
@@ -196,5 +196,9 @@ user_submitted_incident = pd.DataFrame({
     similarity_score_col: ["Unable to reset NID"],
     "category": ["hardware"]
 })
-print(get_single_similarity(incidents, user_submitted_incident))
+
+b = get_single_similarity(incidents, user_submitted_incident)
+
+#print(b)
+print(b.iloc[0].iloc[0])
 

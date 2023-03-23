@@ -134,6 +134,87 @@ def _calculate_similarity(incidents):
 
     return similarity_scores
 
+def runBN(train_data, user_submitted_incident):
+
+    print("Running Naive Bayes on: " + user_submitted_incident)
+    import nltk
+    from nltk.stem import WordNetLemmatizer
+    stopwords = nltk.corpus.stopwords.words('english')
+
+    # had to install this followed this guide:  https://stackoverflow.com/questions/13965823/resource-corpora-wordnet-not-found-on-heroku
+    lemmatizer = WordNetLemmatizer()
+    #nltk.download('stopwords')
+    #train_data
+
+    ## CREDIT:  https://www.analyticsvidhya.com/blog/2021/09/creating-a-movie-reviews-classifier-using-tf-idf-in-python/
+
+    train_X_non = train_data['short_description']# + " " + train_data['description']   # '0' refers to the review text
+    train_y = train_data['FalseIncident']   # '1' corresponds to Label (1 - positive and 0 - negative)
+    test_X_non = incidents['short_description']# + " " + incidents['description']
+    test_y = incidents['FalseIncident']
+    train_X=[]
+    test_X=[]
+
+    #text pre processing
+    for i in range(0, len(train_X_non)):
+        review = re.sub('[^a-zA-Z]', ' ', train_X_non.iloc[i])
+        review = review.lower()
+        review = review.split()
+        review = [lemmatizer.lemmatize(word) for word in review if not word in set(stopwords)]
+        review = ' '.join(review)
+        train_X.append(review)
+        
+    #text pre processing
+    for i in range(0, len(test_X_non)):
+        review = re.sub('[^a-zA-Z]', ' ', test_X_non.iloc[i])
+        review = review.lower()
+        review = review.split()
+        review = [lemmatizer.lemmatize(word) for word in review if not word in set(stopwords)]
+        review = ' '.join(review)
+        test_X.append(review)
+
+    print(train_X[3])
+
+    #tf idf
+    tf_idf = TfidfVectorizer()
+    #applying tf idf to training data
+    X_train_tf = tf_idf.fit_transform(train_X)
+    #applying tf idf to training data
+    X_train_tf = tf_idf.transform(train_X)
+
+    #print("n_samples: %d, n_features: %d" % X_train_tf.shape)
+
+    #transforming test data into tf-idf matrix
+    X_test_tf = tf_idf.transform(test_X)
+    #print("n_samples: %d, n_features: %d" % X_test_tf.shape)
+
+    from sklearn.naive_bayes import MultinomialNB
+    from sklearn import metrics
+
+    # REF:  https://builtin.com/data-science/precision-and-recall
+    #naive bayes classifier
+    naive_bayes_classifier = MultinomialNB()
+    naive_bayes_classifier.fit(X_train_tf, train_y)
+    
+    # Lets do a prediction
+    test = [user_submitted_incident]# or ["avengers are here to stay in the world of us"]
+
+
+    review = re.sub('[^a-zA-Z]', ' ', test[0])
+    review = review.lower()
+    review = review.split()
+    review = [lemmatizer.lemmatize(word) for word in review if not word in set(stopwords)]
+    test_processed =[ ' '.join(review)]
+
+    #test_processed = processText("This is unlike any kind of adventure movie my eyes")
+    print("Processed incident value: " + test_processed[0])
+    test_input = tf_idf.transform(test_processed)
+
+    res=naive_bayes_classifier.predict(test_input)[0]
+    print("Prediction: " + res)
+
+    return res
+
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
@@ -156,10 +237,10 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
         add_false_incidents(incidents, 'quickly_closed', 'true')
 
-        print(incidents[incidents['FalseIncident'] == "true"])
+        #print(incidents[incidents['FalseIncident'] == "true"])
         add_false_incidents(incidents, 'category', 'Hardware')
 
-        print(get_similarity(incidents))
+        #print("Similarity score of: " + get_similarity(incidents))
 
             
         user_submitted_incident = pd.DataFrame({
@@ -169,9 +250,15 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         })
 
         single_similarity = get_single_similarity(incidents, user_submitted_incident).iloc[0].iloc[0]
-        print()
 
-        return func.HttpResponse(f"{single_similarity}")
+        print("Similarity score of: " + single_similarity)
+        
+        bnResult = runBN(incidents[incidents['FalseIncident'] == "true"], user_submitted_incident)
+
+        print("Prediction: " + bnResult)
+        
+
+        return func.HttpResponse(f"{single_similarity,bnResult}")
     else:
         return func.HttpResponse(
              "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
@@ -200,5 +287,7 @@ user_submitted_incident = pd.DataFrame({
 b = get_single_similarity(incidents, user_submitted_incident)
 
 #print(b)
-print(b.iloc[0].iloc[0])
+print("Similarity score: " + b.iloc[0].iloc[0].astype('str'))
+
+runBN(incidents[incidents['FalseIncident'] == "true"], "avengers are here to stay in the world of us")
 

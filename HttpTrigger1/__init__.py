@@ -138,6 +138,8 @@ def runBN(train_data, user_submitted_incident):
 
     print("Running Naive Bayes on: " + user_submitted_incident)
     import nltk
+    # Azure location
+    nltk.data.path.append(os.getcwd() + "/HttpTrigger1/nltk_data")
     from nltk.stem import WordNetLemmatizer
     stopwords = nltk.corpus.stopwords.words('english')
 

@@ -183,7 +183,7 @@ def runBN(train_data, user_submitted_incident):
         review = ' '.join(review)
         test_X.append(review)
 
-    print(train_X[3])
+    #print(train_X[3])
 
     #tf idf
     tf_idf = TfidfVectorizer()
@@ -277,10 +277,9 @@ def testRun(name):
     print("Similarity score: " + single_similarity)
     res = runBN(incidents[incidents['FalseIncident'] == "true"], name)
 
-    return {
-        "single_similarity": single_similarity,
-        "prediction": res
-    }
+   # print("Prediction: " + res)
+
+    return "{'single_similarity': " + single_similarity + ",'prediction': " + res + "}"
 
 
 obj = testRun("Unable to reset NID")

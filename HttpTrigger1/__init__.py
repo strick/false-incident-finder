@@ -10,10 +10,12 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 similarity_score_col = "short_description"
+incidents = 0
 
 # then compute similaties using cosine_sim with all other types to get a similartiy
 def search(incident): #
 
+    global incidents
     # Choose min and max word sequesnces
     vectorizer = TfidfVectorizer(ngram_range=(1,5))
 
@@ -51,11 +53,13 @@ def search(incident): #
         return results
 
 def import_data():
+    global incidents
     print("Importing data...")
     incidents = pd.read_csv(os.getcwd() + "/HttpTrigger1/incident_and_comments.csv")
     return incidents
 
-def preprocess_data(incidents):
+def preprocess_data():
+    global incidents
 
     print("Preprocessing...")
     nanColumns = ['description', 'short_description']
@@ -110,31 +114,35 @@ def is_quickly_closed(row):
     return "false"
     
 # Helper function to set the FalseIncident column to true for all rows in the dataframe based on a feature and value.
-def add_false_incidents(df, feature, value):
-    
-    df.loc[(df[feature] == value), 'FalseIncident'] = "true"
+def add_false_incidents(feature, value):
+    global incidents
+    incidents.loc[(incidents[feature] == value), 'FalseIncident'] = "true"
 
-def get_similarity(incidents):
-
+def get_similarity(incidentss):
+    global incidents
     # add a new column to the incidents dataframe that contains non-empty dataframes with similar incidents
     incidents["similar_incidents"] = incidents.apply(search, axis=1)
 
     return _calculate_similarity(incidents)
 
-def get_single_similarity(incidents, user_submitted_incident):
+def get_single_similarity(incidentss, user_submitted_incident):
      
+    global incidents
     incidents["similar_incidents"] = user_submitted_incident.apply(search, axis=1)
 
     return _calculate_similarity(incidents)
 
-def _calculate_similarity(incidents):
+def _calculate_similarity(incidentss):
     
+    global incidents
     non_empty_similar_incidents = incidents.dropna(subset=["similar_incidents"])
     similarity_scores = non_empty_similar_incidents["similar_incidents"].apply(lambda x: x["similarity_score"])
 
     return similarity_scores
 
 def runBN(train_data, user_submitted_incident):
+
+    global incidents
 
     print("Running Naive Bayes on: " + user_submitted_incident)
     import nltk
@@ -219,6 +227,7 @@ def runBN(train_data, user_submitted_incident):
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
+    global incidents
 
     #import_data()
     name = req.params.get('name')
@@ -232,64 +241,47 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     if name:
         
-        incidents = import_data()
-        incidents = preprocess_data(incidents)
-
-        incidents["quickly_closed"] = incidents.apply(is_quickly_closed, axis=1)
-
-        add_false_incidents(incidents, 'quickly_closed', 'true')
-
-        #print(incidents[incidents['FalseIncident'] == "true"])
-        add_false_incidents(incidents, 'category', 'Hardware')
-
-        #print("Similarity score of: " + get_similarity(incidents))
-
-            
-        user_submitted_incident = pd.DataFrame({
-            "name": [-1],
-            similarity_score_col: [name],
-            "category": ["hardware"]
-        })
-
-        single_similarity = get_single_similarity(incidents, user_submitted_incident).iloc[0].iloc[0]
-
-        print("Similarity score of: " + single_similarity)
+        result = testRun(name)
         
-        bnResult = runBN(incidents[incidents['FalseIncident'] == "true"], user_submitted_incident)
-
-        print("Prediction: " + bnResult)
-        
-
-        return func.HttpResponse(f"{single_similarity,bnResult}")
+        #return func.HttpResponse(f"{single_similarity,bnResult}")
+        return func.HttpResponse(result)
     else:
         return func.HttpResponse(
              "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
              status_code=200
         )
 
-incidents = import_data()
-incidents = preprocess_data(incidents)
+def testRun(name):
+    global incidents
+    import_data()
+    preprocess_data()
 
-incidents["quickly_closed"] = incidents.apply(is_quickly_closed, axis=1)
+    incidents["quickly_closed"] = incidents.apply(is_quickly_closed, axis=1)
 
-add_false_incidents(incidents, 'quickly_closed', 'true')
+    add_false_incidents('quickly_closed', 'true')
+    add_false_incidents('category', 'Hardware')
 
-#print(incidents[incidents['FalseIncident'] == "true"])
-add_false_incidents(incidents, 'category', 'Hardware')
+    user_submitted_incident = pd.DataFrame({
+        "name": [-1],
+        similarity_score_col: [name],#["Unable to reset NID"],
+        "category": ["hardware"]
+    })
 
-#print(get_similarity(incidents))
-
+    single_similarity = get_single_similarity(incidents, user_submitted_incident)
     
-user_submitted_incident = pd.DataFrame({
-    "name": [-1],
-    similarity_score_col: ["Unable to reset NID"],
-    "category": ["hardware"]
-})
+    if single_similarity.empty:
+        single_similarity = "0"
+    else:
+        single_similarity = single_similarity.iloc[0].iloc[0].astype('str')
 
-b = get_single_similarity(incidents, user_submitted_incident)
+    print("Similarity score: " + single_similarity)
+    res = runBN(incidents[incidents['FalseIncident'] == "true"], name)
 
-#print(b)
-print("Similarity score: " + b.iloc[0].iloc[0].astype('str'))
+    return {
+        "single_similarity": single_similarity,
+        "prediction": res
+    }
 
-runBN(incidents[incidents['FalseIncident'] == "true"], "avengers are here to stay in the world of us")
 
+obj = testRun("Unable to reset NID")
+print(obj)

@@ -1517,7 +1517,7 @@ plt.scatter(filtered_label0[:,1] , filtered_label0[:,1])
 
 
     
-![png](output_47_1.png)
+![png](./output_47_1.png)
     
 
 

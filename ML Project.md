@@ -118,8 +118,6 @@ incidents
       <th>short_description</th>
       <th>description</th>
       <th>assignment_group</th>
-      <th>assigned_to</th>
-      <th>sys_created_by</th>
       <th>u_inc_dept</th>
       <th>sys_created_on</th>
       <th>closed_at</th>
@@ -134,8 +132,6 @@ incidents
       <td>The SAFE Form website is not properly generati...</td>
       <td>When individuals complete a SAFE Form, there i...</td>
       <td>Custom Application Development</td>
-      <td>Jordan Rogers</td>
-      <td>jandrade</td>
       <td>NaN</td>
       <td>09/25/2017 04:07:49 PM</td>
       <td>10/13/2017 08:48:07 AM</td>
@@ -148,8 +144,6 @@ incidents
       <td>Undergraduate Admissions Web App (OLA) file wa...</td>
       <td>The web application load in PS failed because ...</td>
       <td>Custom Application Development</td>
-      <td>Keya Jatkar</td>
-      <td>tmaggart</td>
       <td>NaN</td>
       <td>10/25/2017 08:26:34 AM</td>
       <td>10/30/2017 02:48:11 PM</td>
@@ -162,8 +156,6 @@ incidents
       <td>Unable to access http://directory.sdes.ucf.edu...</td>
       <td>Unable to access site</td>
       <td>Custom Application Development</td>
-      <td>Jordan Rogers</td>
-      <td>fe123824</td>
       <td>NaN</td>
       <td>10/27/2017 08:55:53 AM</td>
       <td>11/01/2017 11:48:06 AM</td>
@@ -176,8 +168,6 @@ incidents
       <td>We are unable to enter redeemed vouchers into ...</td>
       <td>This is the first time this year that we are p...</td>
       <td>Custom Application Development</td>
-      <td>Jordan Rogers</td>
-      <td>ri722235</td>
       <td>NaN</td>
       <td>10/27/2017 02:45:07 PM</td>
       <td>11/01/2017 03:48:07 PM</td>
@@ -190,8 +180,6 @@ incidents
       <td>UA forms such as Residency, Reacts, Counselor ...</td>
       <td>UA forms such as Residency, Reacts, Counselor ...</td>
       <td>Custom Application Development</td>
-      <td>Christopher Rice</td>
-      <td>jopper</td>
       <td>NaN</td>
       <td>10/31/2017 08:39:06 AM</td>
       <td>11/03/2017 01:48:08 PM</td>
@@ -218,8 +206,6 @@ incidents
       <td>Trying to submit changes to UCF Phonebook and ...</td>
       <td>Details:  Althea Robinson called to report she...</td>
       <td>Custom Application Development</td>
-      <td>Jordan Rogers</td>
-      <td>ahrobins</td>
       <td>CCIE ADMINISTRATION</td>
       <td>05/18/2022 11:55:32 AM</td>
       <td>05/23/2022 04:48:07 PM</td>
@@ -232,8 +218,6 @@ incidents
       <td>I need access to following link below. When I ...</td>
       <td>User's relationship to UCF: Employee\n\nUser's...</td>
       <td>Custom Application Development</td>
-      <td>Jordan Rogers</td>
-      <td>jo900003</td>
       <td>COLLEGE OF BUSINESS DEAN</td>
       <td>05/25/2022 08:57:12 AM</td>
       <td>05/31/2022 02:48:00 PM</td>
@@ -246,8 +230,6 @@ incidents
       <td>Cannot log into COBA Test Management</td>
       <td>I have tried several times to log in but keep ...</td>
       <td>Custom Application Development</td>
-      <td>Jordan Rogers</td>
-      <td>mi324069</td>
       <td>NaN</td>
       <td>06/03/2022 04:46:22 AM</td>
       <td>06/23/2022 10:48:00 AM</td>
@@ -260,8 +242,6 @@ incidents
       <td>Knights Email Acount Login and Password Reset/...</td>
       <td>Incoming student Sydney Schumacher called in f...</td>
       <td>Custom Application Development</td>
-      <td>Jordan Rogers</td>
-      <td>jo365278</td>
       <td>NaN</td>
       <td>06/14/2022 01:31:45 PM</td>
       <td>06/20/2022 08:48:05 AM</td>
@@ -273,9 +253,7 @@ incidents
       <td>Software</td>
       <td>custom app e911.it.ucf.edu not pulling data</td>
       <td>custom app is displaying datatables error when...</td>
-      <td>Custom Application Development</td>
-      <td>Jordan Rogers</td>
-      <td>se005763</td>
+      <td>Custom Application Development</td>      
       <td>UCF IT</td>
       <td>06/30/2022 03:48:37 PM</td>
       <td>07/18/2022 01:48:00 PM</td>
@@ -357,8 +335,6 @@ incidents[incidents['quickly_closed'] == "true"]
       <th>short_description</th>
       <th>description</th>
       <th>assignment_group</th>
-      <th>assigned_to</th>
-      <th>sys_created_by</th>
       <th>u_inc_dept</th>
       <th>sys_created_on</th>
       <th>closed_at</th>
@@ -374,8 +350,6 @@ incidents[incidents['quickly_closed'] == "true"]
       <td>Unable to reset NID password</td>
       <td>User called in to report that he has been unab...</td>
       <td>Custom Application Development</td>
-      <td>NaN</td>
-      <td>di853236</td>
       <td>CCIE DEAN</td>
       <td>12/09/2021 09:33:23 AM</td>
       <td>12/09/2021 09:49:04 AM</td>
@@ -451,8 +425,6 @@ incidents[incidents['FalseIncident'] == "true"]
       <th>short_description</th>
       <th>description</th>
       <th>assignment_group</th>
-      <th>assigned_to</th>
-      <th>sys_created_by</th>
       <th>u_inc_dept</th>
       <th>sys_created_on</th>
       <th>closed_at</th>
@@ -468,8 +440,6 @@ incidents[incidents['FalseIncident'] == "true"]
       <td>Unable to reset NID password</td>
       <td>User called in to report that he has been unab...</td>
       <td>Custom Application Development</td>
-      <td>NaN</td>
-      <td>di853236</td>
       <td>CCIE DEAN</td>
       <td>12/09/2021 09:33:23 AM</td>
       <td>12/09/2021 09:49:04 AM</td>
@@ -524,8 +494,6 @@ train_data
       <th>short_description</th>
       <th>description</th>
       <th>assignment_group</th>
-      <th>assigned_to</th>
-      <th>sys_created_by</th>
       <th>u_inc_dept</th>
       <th>sys_created_on</th>
       <th>closed_at</th>
@@ -541,8 +509,6 @@ train_data
       <td>Unable to access http://directory.sdes.ucf.edu...</td>
       <td>Unable to access site</td>
       <td>Custom Application Development</td>
-      <td>Jordan Rogers</td>
-      <td>fe123824</td>
       <td>NaN</td>
       <td>10/27/2017 08:55:53 AM</td>
       <td>11/01/2017 11:48:06 AM</td>
@@ -556,8 +522,6 @@ train_data
       <td>Students are unable to upload forms to online ...</td>
       <td>Students are required to upload their involvem...</td>
       <td>Custom Application Development</td>
-      <td>Jordan Rogers</td>
-      <td>ademetry</td>
       <td>NaN</td>
       <td>12/04/2017 01:13:26 PM</td>
       <td>12/12/2017 11:48:05 AM</td>
@@ -571,8 +535,6 @@ train_data
       <td>The Exchange Unified Messaging voicemail assig...</td>
       <td>The Exchange Unified Messaging voicemail assig...</td>
       <td>Custom Application Development</td>
-      <td>Brian Strickland</td>
-      <td>jo320536</td>
       <td>UCF IT</td>
       <td>03/13/2019 06:38:29 AM</td>
       <td>03/21/2019 03:48:13 PM</td>
@@ -586,8 +548,6 @@ train_data
       <td>Can't access DHCP reservations or do anythong ...</td>
       <td>I got the new URL my.it.ucf.edeu and I can get...</td>
       <td>Custom Application Development</td>
-      <td>Jordan Rogers</td>
-      <td>cchardon</td>
       <td>FINANCIAL AFFAIRS</td>
       <td>02/19/2020 09:41:48 AM</td>
       <td>02/24/2020 12:48:09 PM</td>
@@ -601,8 +561,6 @@ train_data
       <td>We are not able to access lead.sdes.ucf.edu/ad...</td>
       <td>All computers in the office are getting the sa...</td>
       <td>Custom Application Development</td>
-      <td>Jordan Rogers</td>
-      <td>mpoisel</td>
       <td>SDES STU LEADERSHIP DEVELOP</td>
       <td>08/19/2021 08:47:17 AM</td>
       <td>08/26/2021 11:48:14 AM</td>
@@ -616,8 +574,6 @@ train_data
       <td>Unable to reset NID password</td>
       <td>User called in to report that he has been unab...</td>
       <td>Custom Application Development</td>
-      <td>NaN</td>
-      <td>di853236</td>
       <td>CCIE DEAN</td>
       <td>12/09/2021 09:33:23 AM</td>
       <td>12/09/2021 09:49:04 AM</td>
@@ -752,8 +708,6 @@ non_empty_similar_incidents
       <th>short_description</th>
       <th>description</th>
       <th>assignment_group</th>
-      <th>assigned_to</th>
-      <th>sys_created_by</th>
       <th>u_inc_dept</th>
       <th>sys_created_on</th>
       <th>closed_at</th>
@@ -770,8 +724,6 @@ non_empty_similar_incidents
       <td>User called in to report that he is unable to ...</td>
       <td>User called in to report that he is unable to ...</td>
       <td>Custom Application Development</td>
-      <td>Brian Strickland</td>
-      <td>el196996</td>
       <td>NaN</td>
       <td>02/24/2020 12:45:58 PM</td>
       <td>04/10/2020 08:48:08 AM</td>
@@ -786,8 +738,6 @@ non_empty_similar_incidents
       <td>Unable to reset NID Password due to webpage ou...</td>
       <td>User's password has expired and they attempted...</td>
       <td>Custom Application Development</td>
-      <td>Brian Strickland</td>
-      <td>ch786790</td>
       <td>NaN</td>
       <td>03/08/2021 04:48:03 PM</td>
       <td>03/15/2021 01:48:02 PM</td>
@@ -802,8 +752,6 @@ non_empty_similar_incidents
       <td>NID Password reset for account (NID): da909465</td>
       <td>User is having issues being able to reset his ...</td>
       <td>Custom Application Development</td>
-      <td>Brian Strickland</td>
-      <td>sa905852</td>
       <td>HOSPITALITY MANAGEMENT DEAN</td>
       <td>03/09/2021 01:30:01 PM</td>
       <td>03/15/2021 01:48:08 PM</td>
@@ -818,8 +766,6 @@ non_empty_similar_incidents
       <td>User is unable to reset knights mail due to it...</td>
       <td>User states when trying to reset his password ...</td>
       <td>Custom Application Development</td>
-      <td>Jordan Rogers</td>
-      <td>ky364391</td>
       <td>NaN</td>
       <td>12/07/2021 07:31:51 PM</td>
       <td>12/14/2021 02:48:04 PM</td>
@@ -834,8 +780,6 @@ non_empty_similar_incidents
       <td>Unable to reset NID password</td>
       <td>User called in to report that she has been una...</td>
       <td>Custom Application Development</td>
-      <td>Jordan Rogers</td>
-      <td>di853236</td>
       <td>NaN</td>
       <td>12/09/2021 09:27:13 AM</td>
       <td>01/21/2022 08:48:06 AM</td>
@@ -850,8 +794,6 @@ non_empty_similar_incidents
       <td>Students are not able to upload documents to t...</td>
       <td>Students are trying to go to their profile and...</td>
       <td>Custom Application Development</td>
-      <td>Jordan Rogers</td>
-      <td>mpoisel</td>
       <td>SDES STU LEADERSHIP DEVELOP</td>
       <td>01/18/2022 03:53:46 PM</td>
       <td>02/09/2022 08:48:15 AM</td>
@@ -1017,8 +959,6 @@ df_found
       <th>short_description</th>
       <th>description</th>
       <th>assignment_group</th>
-      <th>assigned_to</th>
-      <th>sys_created_by</th>
       <th>u_inc_dept</th>
       <th>sys_created_on</th>
       <th>closed_at</th>
@@ -1035,8 +975,6 @@ df_found
       <td>We are not able to access lead.sdes.ucf.edu/ad...</td>
       <td>All computers in the office are getting the sa...</td>
       <td>Custom Application Development</td>
-      <td>Jordan Rogers</td>
-      <td>mpoisel</td>
       <td>SDES STU LEADERSHIP DEVELOP</td>
       <td>08/19/2021 08:47:17 AM</td>
       <td>08/26/2021 11:48:14 AM</td>
@@ -1051,8 +989,6 @@ df_found
       <td>Unable to reset NID password</td>
       <td>User called in to report that he has been unab...</td>
       <td>Custom Application Development</td>
-      <td>NaN</td>
-      <td>di853236</td>
       <td>CCIE DEAN</td>
       <td>12/09/2021 09:33:23 AM</td>
       <td>12/09/2021 09:49:04 AM</td>
@@ -1067,8 +1003,6 @@ df_found
       <td>User called in to report that he is unable to ...</td>
       <td>User called in to report that he is unable to ...</td>
       <td>Custom Application Development</td>
-      <td>Brian Strickland</td>
-      <td>el196996</td>
       <td>NaN</td>
       <td>02/24/2020 12:45:58 PM</td>
       <td>04/10/2020 08:48:08 AM</td>
@@ -1083,8 +1017,6 @@ df_found
       <td>Unable to reset NID Password due to webpage ou...</td>
       <td>User's password has expired and they attempted...</td>
       <td>Custom Application Development</td>
-      <td>Brian Strickland</td>
-      <td>ch786790</td>
       <td>NaN</td>
       <td>03/08/2021 04:48:03 PM</td>
       <td>03/15/2021 01:48:02 PM</td>
@@ -1099,8 +1031,6 @@ df_found
       <td>User is unable to reset knights mail due to it...</td>
       <td>User states when trying to reset his password ...</td>
       <td>Custom Application Development</td>
-      <td>Jordan Rogers</td>
-      <td>ky364391</td>
       <td>NaN</td>
       <td>12/07/2021 07:31:51 PM</td>
       <td>12/14/2021 02:48:04 PM</td>
@@ -1115,8 +1045,6 @@ df_found
       <td>Unable to reset NID password</td>
       <td>User called in to report that she has been una...</td>
       <td>Custom Application Development</td>
-      <td>Jordan Rogers</td>
-      <td>di853236</td>
       <td>NaN</td>
       <td>12/09/2021 09:27:13 AM</td>
       <td>01/21/2022 08:48:06 AM</td>
@@ -1131,8 +1059,6 @@ df_found
       <td>Students are not able to upload documents to t...</td>
       <td>Students are trying to go to their profile and...</td>
       <td>Custom Application Development</td>
-      <td>Jordan Rogers</td>
-      <td>mpoisel</td>
       <td>SDES STU LEADERSHIP DEVELOP</td>
       <td>01/18/2022 03:53:46 PM</td>
       <td>02/09/2022 08:48:15 AM</td>
